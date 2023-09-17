@@ -1,16 +1,26 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+import { Component } from 'react';
+import { Contacts } from './Contacts/Contacts';
+import { Phonebook } from './Phonebook/Phonebook';
+import { nanoid } from 'nanoid';
+import { ContactForm } from './Form/Form';
+
+const INITIAL_STATE = {
+  contacts: [],
+  name: '',
+};
+
+export class App extends Component {
+  state = {
+    ...INITIAL_STATE,
+  };
+  
+  render() {console.log(this.state)
+      return (
+        <>
+          <ContactForm></ContactForm>
+      <Contacts contactList={this.state.contacts}></Contacts>
+    </>
   );
+  }
+
 };
