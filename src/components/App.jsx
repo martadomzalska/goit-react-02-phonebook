@@ -18,54 +18,56 @@ export class App extends Component {
     const existingContact = this.state.contacts.find(
       contact => contact.name === newContact.name
     );
-    console.log(existingContact);
     if (existingContact) {
       alert(`${existingContact.name} is already in contacts`);
     } else {
-      this.setState(
-        state => {
-          const contacts = [...this.state.contacts, newContact];
-          return {
-            name: newContact.name,
-            contacts,
-          };
-        },
-        () => {
-          this.reset();
-        }
-      );
+      this.setState(state => {
+        const contacts = [...this.state.contacts, newContact];
+        return {
+          name: newContact.name,
+          contacts,
+        };
+      });
     }
   };
 
-  reset = () => {
-    this.setState({
-      name: '',
-      number: '',
-    });
-  };
-
-  //onChange for Filter
+  //onChange event for Filter Component
   filterContacts = e => {
     this.setState({ filter: e.target.value });
+  };
+
+  deleteContact = (e, contacts) => {
+    const id = e.currentTarget.id;
+    const filteredContacts = this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+    const updatedContacts = filteredContacts.filter(
+      contact => contact.id !== id
+    );
+    this.setState(state => ({
+      contacts: updatedContacts,
+    }));
   };
 
   render() {
     const filteredContacts = this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
+
     return (
-      <>
+      <div className="container">
+        <h1>Phonebook</h1>
         <ContactForm onSubmit={this.handleSubmit}></ContactForm>
+        <h2>Contacts</h2>
+        <Filter
+          value={this.state.filter}
+          onChange={this.filterContacts}
+        ></Filter>
         <ContactList
           contacts={filteredContacts}
-          children={
-            <Filter
-              value={this.state.filter}
-              onChange={this.filterContacts}
-            ></Filter>
-          }
+          onButtonClick={this.deleteContact}
         ></ContactList>
-      </>
+      </div>
     );
   }
 }

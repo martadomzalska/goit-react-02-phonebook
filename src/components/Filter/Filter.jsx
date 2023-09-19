@@ -1,8 +1,21 @@
+import css from './Filter.module.css';
+import PropTypes from 'prop-types';
+
 export const Filter = ({ value, onChange }) => (
-  <>
+  <div className={css.filterBox}>
     <label>
       Find contacts by name
-      <input type="name" value={value} onChange={onChange} />
+      <input
+        className={css.input}
+        type="name"
+        value={value}
+        onChange={onChange}
+      />
     </label>
-  </>
+  </div>
 );
+
+Filter.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};

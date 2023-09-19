@@ -1,13 +1,31 @@
-export const ContactList = ({ contacts, children }) => (
-  <>
-    <h2>Contacts</h2>
-    {children}
-    <ul>
-      {contacts.map(contact => (
-        <li key={contact.id}>
-          {contact.name} - {contact.number}
-        </li>
-      ))}
-    </ul>
-  </>
-);
+import css from './Contacts.module.css';
+import PropTypes from 'prop-types';
+
+export const ContactList = ({ contacts, onButtonClick }) => {
+  if (contacts.length > 0) {
+    return (
+      <>
+        <ul className={css.list}>
+          {contacts.map(contact => (
+            <li className={css.list_element} key={contact.id}>
+              {contact.name} - {contact.number}
+              <button
+                className={css.button}
+                id={contact.id}
+                onClick={onButtonClick}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      </>
+    );
+  }
+  return <p>No contacts found</p>;
+};
+
+ContactList.propTypes = {
+  contacts: PropTypes.array,
+  onButtonClick: PropTypes.func,
+};
