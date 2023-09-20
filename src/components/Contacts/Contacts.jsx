@@ -26,6 +26,13 @@ export const ContactList = ({ contacts, onButtonClick }) => {
 };
 
 ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object),
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
+
   onButtonClick: PropTypes.func,
 };
