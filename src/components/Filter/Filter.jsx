@@ -2,7 +2,7 @@ import css from './Filter.module.css';
 import PropTypes from 'prop-types';
 
 export const Filter = ({ value, onChange }) => (
-  <div className={css.filterBox}>
+  <>
     <label>
       Find contacts by name
       <input
@@ -12,7 +12,7 @@ export const Filter = ({ value, onChange }) => (
         onChange={onChange}
       />
     </label>
-  </div>
+  </>
 );
 
 Filter.propTypes = {
